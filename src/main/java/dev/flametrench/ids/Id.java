@@ -122,6 +122,66 @@ public final class Id {
     }
 
     /**
+     * Decode a Flametrench wire-format ID without checking the registered-type set.
+     *
+     * <p>Use this for backend storage adapters that need to convert
+     * wire-format object IDs to canonical UUIDs without knowing the
+     * application's domain types in advance — e.g., when an authz tuple
+     * has {@code objectType="proj"} and {@code objectId="proj_0190f2a8..."}.
+     *
+     * <p>Validates wire-format shape (separator, 32-char lowercase hex,
+     * version nibble 1–8). Does NOT consult {@link #TYPES}. See
+     * {@code spec/docs/ids.md}.
+     *
+     * @throws InvalidIdError if the ID's structure is malformed. Never
+     *                        throws {@link InvalidTypeError}.
+     */
+    public static DecodedId decodeAny(String id) {
+        if (id == null) {
+            throw new InvalidIdError("ID is null");
+        }
+        int sep = id.indexOf('_');
+        if (sep == -1) {
+            throw new InvalidIdError("ID missing type separator: " + id);
+        }
+        String type = id.substring(0, sep);
+        String hex = id.substring(sep + 1);
+        if (type.isEmpty()) {
+            throw new InvalidIdError("ID has empty type prefix: " + id);
+        }
+        if (hex.length() != HEX_PAYLOAD_LENGTH || !HEX_PATTERN.matcher(hex).matches()) {
+            throw new InvalidIdError(
+                    "ID payload is not 32 lowercase hex characters: " + id);
+        }
+        String versionChar = String.valueOf(hex.charAt(12));
+        if (!VERSION_NIBBLE_PATTERN.matcher(versionChar).matches()) {
+            throw new InvalidIdError("ID payload is not a valid UUID: " + id);
+        }
+        String canonical = hex.substring(0, 8) + "-" +
+                hex.substring(8, 12) + "-" +
+                hex.substring(12, 16) + "-" +
+                hex.substring(16, 20) + "-" +
+                hex.substring(20, 32);
+        return new DecodedId(type, canonical);
+    }
+
+    /**
+     * Predicate counterpart to {@link #decodeAny(String)}. Returns true
+     * for any well-formed wire-format ID regardless of registry membership.
+     *
+     * <p>Use this when validating input from external systems that may
+     * legitimately reference application-defined object types.
+     */
+    public static boolean isValidShape(String id) {
+        try {
+            decodeAny(id);
+            return true;
+        } catch (InvalidIdError e) {
+            return false;
+        }
+    }
+
+    /**
      * Check whether a string is a valid Flametrench wire-format ID.
      */
     public static boolean isValid(String id) {

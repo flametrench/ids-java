@@ -132,4 +132,51 @@ class IdTest {
         }
         assertEquals(50, ids.size());
     }
+
+    // ─── decodeAny / isValidShape — adapter helpers ───
+
+    private static final String SAMPLE_HEX = "0190f2a81b3c7abc8123456789abcdef";
+
+    @Test
+    void decodeAnyDecodesRegisteredPrefixSameAsDecode() {
+        DecodedId result = Id.decodeAny("usr_" + SAMPLE_HEX);
+        assertEquals("usr", result.type());
+        assertEquals("0190f2a8-1b3c-7abc-8123-456789abcdef", result.uuid());
+    }
+
+    @Test
+    void decodeAnyAcceptsApplicationDefinedPrefix() {
+        // 'proj' is not in TYPES — strict decode throws InvalidTypeError;
+        // decodeAny accepts it.
+        DecodedId result = Id.decodeAny("proj_" + SAMPLE_HEX);
+        assertEquals("proj", result.type());
+    }
+
+    @Test
+    void decodeAnyRejectsMalformedShape() {
+        assertThrows(InvalidIdError.class, () -> Id.decodeAny("no-separator"));
+        assertThrows(InvalidIdError.class,
+                () -> Id.decodeAny("usr_" + SAMPLE_HEX.toUpperCase()));
+        assertThrows(InvalidIdError.class, () -> Id.decodeAny("_" + SAMPLE_HEX));
+        assertThrows(InvalidIdError.class,
+                () -> Id.decodeAny("usr_00000000000000000000000000000000"));
+    }
+
+    @Test
+    void isValidShapeAcceptsApplicationDefinedPrefix() {
+        assertTrue(Id.isValidShape("proj_" + SAMPLE_HEX));
+        assertTrue(Id.isValidShape("doc_" + SAMPLE_HEX));
+    }
+
+    @Test
+    void isValidShapeAcceptsRegisteredPrefix() {
+        assertTrue(Id.isValidShape("usr_" + SAMPLE_HEX));
+    }
+
+    @Test
+    void isValidShapeRejectsMalformed() {
+        assertFalse(Id.isValidShape("not an id"));
+        assertFalse(Id.isValidShape("usr_" + SAMPLE_HEX.toUpperCase()));
+        assertFalse(Id.isValidShape("usr_ffffffffffffffffffffffffffffffff"));
+    }
 }
