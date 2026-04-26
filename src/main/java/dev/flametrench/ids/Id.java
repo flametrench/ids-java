@@ -36,7 +36,9 @@ public final class Id {
             "inv", "invitation",
             "ses", "session",
             "cred", "credential",
-            "tup", "authorization_tuple"
+            "tup", "authorization_tuple",
+            // v0.2 — Proposed (ADR 0008)
+            "mfa", "mfa_factor"
     );
 
     private static final int HEX_PAYLOAD_LENGTH = 32;
