@@ -1,5 +1,7 @@
 # flametrench-ids (Java)
 
+[![CI](https://github.com/flametrench/ids-java/actions/workflows/ci.yml/badge.svg)](https://github.com/flametrench/ids-java/actions/workflows/ci.yml)
+
 Java SDK for the [Flametrench](https://github.com/flametrench/spec) wire-format identifier specification — fourth in the language family alongside Node, PHP, and Python.
 
 The wire format is `{type}_{32-hex}`, where the hex payload is a UUIDv7 (so generated IDs sort by creation time). The same identifiers travel unchanged across all four SDKs; the conformance fixture corpus enforces this mechanically.
