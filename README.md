@@ -1,6 +1,6 @@
 # flametrench-ids (Java)
 
-Java SDK for the [Flametrench v0.1](https://github.com/flametrench/spec) wire-format identifier specification — fourth in the language family alongside Node, PHP, and Python.
+Java SDK for the [Flametrench](https://github.com/flametrench/spec) wire-format identifier specification — fourth in the language family alongside Node, PHP, and Python.
 
 The wire format is `{type}_{32-hex}`, where the hex payload is a UUIDv7 (so generated IDs sort by creation time). The same identifiers travel unchanged across all four SDKs; the conformance fixture corpus enforces this mechanically.
 
@@ -26,29 +26,31 @@ Maven:
 <dependency>
     <groupId>dev.flametrench</groupId>
     <artifactId>ids</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.0-rc.2</version>
 </dependency>
 ```
 
 Gradle:
 
 ```groovy
-implementation 'dev.flametrench:ids:0.1.0'
+implementation 'dev.flametrench:ids:0.2.0-rc.2'
 ```
 
 Requires Java 17+. UUIDv7 generation uses `com.fasterxml.uuid:java-uuid-generator`, the reference implementation aligned with RFC 9562.
 
 ## Registered type prefixes
 
-| Prefix  | Meaning                |
-| ------- | ---------------------- |
-| `usr`   | user                   |
-| `org`   | organization           |
-| `mem`   | membership             |
-| `inv`   | invitation             |
-| `ses`   | session                |
-| `cred`  | credential             |
-| `tup`   | authorization tuple    |
+| Prefix  | Meaning                | Spec version |
+| ------- | ---------------------- | ------------ |
+| `usr`   | user                   | v0.1         |
+| `org`   | organization           | v0.1         |
+| `mem`   | membership             | v0.1         |
+| `inv`   | invitation             | v0.1         |
+| `ses`   | session                | v0.1         |
+| `cred`  | credential             | v0.1         |
+| `tup`   | authorization tuple    | v0.1         |
+| `mfa`   | MFA factor             | v0.2         |
+| `shr`   | share token            | v0.2         |
 
 The registry is normative; see [docs/ids.md](https://github.com/flametrench/spec/blob/main/docs/ids.md) for the full rules.
 
