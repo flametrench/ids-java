@@ -28,14 +28,14 @@ Maven:
 <dependency>
     <groupId>dev.flametrench</groupId>
     <artifactId>ids</artifactId>
-    <version>0.2.0-rc.2</version>
+    <version>0.2.0</version>
 </dependency>
 ```
 
 Gradle:
 
 ```groovy
-implementation 'dev.flametrench:ids:0.2.0-rc.2'
+implementation 'dev.flametrench:ids:0.2.0'
 ```
 
 Requires Java 17+. UUIDv7 generation uses `com.fasterxml.uuid:java-uuid-generator`, the reference implementation aligned with RFC 9562.
