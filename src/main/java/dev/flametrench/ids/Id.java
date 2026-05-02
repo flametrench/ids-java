@@ -40,7 +40,9 @@ public final class Id {
             // v0.2 — Proposed (ADR 0008)
             "mfa", "mfa_factor",
             // v0.2 — Proposed (ADR 0012)
-            "shr", "share_token"
+            "shr", "share_token",
+            // v0.3 — Proposed (ADR 0016)
+            "pat", "personal_access_token"
     );
 
     private static final int HEX_PAYLOAD_LENGTH = 32;
