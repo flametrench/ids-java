@@ -28,14 +28,14 @@ Maven:
 <dependency>
     <groupId>dev.flametrench</groupId>
     <artifactId>ids</artifactId>
-    <version>0.2.0</version>
+    <version>0.3.0</version>
 </dependency>
 ```
 
 Gradle:
 
 ```groovy
-implementation 'dev.flametrench:ids:0.2.0'
+implementation 'dev.flametrench:ids:0.3.0'
 ```
 
 Requires Java 17+. UUIDv7 generation uses `com.fasterxml.uuid:java-uuid-generator`, the reference implementation aligned with RFC 9562.
@@ -53,8 +53,11 @@ Requires Java 17+. UUIDv7 generation uses `com.fasterxml.uuid:java-uuid-generato
 | `tup`   | authorization tuple    | v0.1         |
 | `mfa`   | MFA factor             | v0.2         |
 | `shr`   | share token            | v0.2         |
+| `pat`   | personal access token  | v0.3         |
 
 The registry is normative; see [docs/ids.md](https://github.com/flametrench/spec/blob/main/docs/ids.md) for the full rules.
+
+**Status:** v0.3.0 (stable; Maven Central publish blocked pending Sonatype Central Portal credential regeneration — bundles built and `mvn -P release verify` validated locally, will publish once unblocked). Tracks the spec at v0.3.0; the `pat_` prefix lands in v0.3 via [ADR 0016](https://github.com/flametrench/spec/blob/main/decisions/0016-personal-access-tokens.md).
 
 ## Conformance
 

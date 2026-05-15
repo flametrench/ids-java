@@ -3,7 +3,7 @@
 All notable changes to `dev.flametrench:ids` are recorded here.
 Spec-level changes live in [`spec/CHANGELOG.md`](https://github.com/flametrench/spec/blob/main/CHANGELOG.md).
 
-## [v0.3.0] — Unreleased (Maven Central publish blocked)
+## [v0.3.0] — 2026-05-15 (tagged; Maven Central publish pending Sonatype Central Portal credential regen)
 
 ### Added
 - New `pat` type prefix registered in `Id.TYPES` for the v0.3 personal-access-token primitive ([ADR 0016](https://github.com/flametrench/spec/blob/main/decisions/0016-personal-access-tokens.md)). `Id.encode("pat", uuid)`, `Id.decode("pat_…")`, and `Id.generate("pat")` now work; the PAT store in `dev.flametrench:identity` consumes this prefix.
