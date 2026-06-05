@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
+import static java.util.Map.entry;
+
 /**
  * Wire-format identifiers for Flametrench v0.1.
  *
@@ -29,18 +31,20 @@ public final class Id {
      * <p>Keep synchronized with the spec's reserved prefix registry.
      * Parallel implementations (Node, PHP, Python) use the same prefixes.
      */
-    public static final Map<String, String> TYPES = Map.of(
-            "usr", "user",
-            "org", "organization",
-            "mem", "membership",
-            "inv", "invitation",
-            "ses", "session",
-            "cred", "credential",
-            "tup", "authorization_tuple",
+    public static final Map<String, String> TYPES = Map.ofEntries(
+            entry("usr", "user"),
+            entry("org", "organization"),
+            entry("mem", "membership"),
+            entry("inv", "invitation"),
+            entry("ses", "session"),
+            entry("cred", "credential"),
+            entry("tup", "authorization_tuple"),
             // v0.2 — Proposed (ADR 0008)
-            "mfa", "mfa_factor",
+            entry("mfa", "mfa_factor"),
             // v0.2 — Proposed (ADR 0012)
-            "shr", "share_token"
+            entry("shr", "share_token"),
+            // v0.3 — ADR 0016 personal access tokens
+            entry("pat", "personal_access_token")
     );
 
     private static final int HEX_PAYLOAD_LENGTH = 32;
