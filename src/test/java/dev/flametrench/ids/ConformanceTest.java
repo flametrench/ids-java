@@ -164,4 +164,22 @@ class ConformanceTest {
         }
         return tests;
     }
+
+    // ─── ids.registered_prefixes (v0.4 drift guard, spec@ba4f201) ───
+
+    @TestFactory
+    List<DynamicTest> registeredPrefixesConformance() throws IOException {
+        JsonNode fixture = loadFixture("ids/registered-prefixes.json");
+        List<DynamicTest> tests = new ArrayList<>();
+        for (JsonNode t : fixture.get("tests")) {
+            String id = t.get("id").asText();
+            String desc = t.get("description").asText();
+            tests.add(DynamicTest.dynamicTest("[" + id + "] " + desc, () -> {
+                String inputId = t.get("input").get("id").asText();
+                String expectedType = t.get("expected").get("result").asText();
+                assertEquals(expectedType, Id.typeOf(inputId));
+            }));
+        }
+        return tests;
+    }
 }
