@@ -179,4 +179,35 @@ class IdTest {
         assertFalse(Id.isValidShape("usr_" + SAMPLE_HEX.toUpperCase()));
         assertFalse(Id.isValidShape("usr_ffffffffffffffffffffffffffffffff"));
     }
+
+    // ─── prefix stability — guards against --theirs drops in conflict resolution ───
+
+    /**
+     * Pins the complete set of registered prefixes across all versions (v0.1–v0.4).
+     * If any prefix is missing (e.g. dropped via a bad conflict resolution) this
+     * test fails CI immediately, preventing a silent registry regression from shipping.
+     */
+    @Test
+    void typesRegistryContainsAllExpectedPrefixes() {
+        Set<String> expected = Set.of(
+                // v0.1 — core identity
+                "usr", "org", "mem", "inv", "ses", "cred", "tup",
+                // v0.2 — MFA + share tokens
+                "mfa", "shr",
+                // v0.3 — personal access tokens (ADR 0016)
+                "pat",
+                // v0.4 — four new primitives (ADR 0019/0020/0021/0022)
+                "aud", "file", "flag", "not"
+        );
+        assertEquals(expected, Id.TYPES.keySet(),
+                "TYPES registry diverged from expected prefix set — "
+                        + "missing: " + missingFrom(expected, Id.TYPES.keySet())
+                        + ", unexpected: " + missingFrom(Id.TYPES.keySet(), expected));
+    }
+
+    private static Set<String> missingFrom(Set<String> expected, Set<String> actual) {
+        Set<String> diff = new HashSet<>(expected);
+        diff.removeAll(actual);
+        return diff;
+    }
 }
