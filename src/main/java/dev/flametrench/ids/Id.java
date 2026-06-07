@@ -26,7 +26,7 @@ import static java.util.Map.entry;
 public final class Id {
 
     /**
-     * Registered type prefixes for Flametrench v0.1.
+     * Registered type prefixes for Flametrench v0.1–v0.4.
      *
      * <p>Keep synchronized with the spec's reserved prefix registry.
      * Parallel implementations (Node, PHP, Python) use the same prefixes.
@@ -44,7 +44,12 @@ public final class Id {
             // v0.2 — Proposed (ADR 0012)
             entry("shr", "share_token"),
             // v0.3 — ADR 0016 personal access tokens
-            entry("pat", "personal_access_token")
+            entry("pat", "personal_access_token"),
+            // v0.4 — four new primitives (ADR 0019/0020/0021/0022)
+            entry("aud", "audit_event"),
+            entry("file", "file_metadata"),
+            entry("flag", "feature_flag"),
+            entry("not", "notification")
     );
 
     private static final int HEX_PAYLOAD_LENGTH = 32;

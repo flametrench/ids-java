@@ -3,6 +3,20 @@
 All notable changes to `dev.flametrench:ids` are recorded here.
 Spec-level changes live in [`spec/CHANGELOG.md`](https://github.com/flametrench/spec/blob/main/CHANGELOG.md).
 
+## [v0.4.0] — 2026-06-07
+
+### Added
+- Four v0.4 primitive type prefixes registered in `Id.TYPES` (spec@d170484):
+  - `aud` → `audit_event` (ADR 0019)
+  - `file` → `file_metadata` (ADR 0020)
+  - `flag` → `feature_flag` (ADR 0021)
+  - `not` → `notification` (ADR 0022)
+
+## [v0.3.0] — 2026-06-06
+
+### Added
+- `pat` type prefix registered for personal access tokens (ADR 0016).
+
 ## [v0.2.0] — 2026-04-30
 
 ### Released
